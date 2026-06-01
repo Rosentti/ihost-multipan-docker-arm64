@@ -2,8 +2,6 @@ name: 'build latest'
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '0 0 * * *'
 
 env:
   UPSTREAM_REPO: ihost-open-source-project/hassio-ihost-silabs-multiprotocol-aarch64
@@ -30,9 +28,9 @@ jobs:
       - name: self version
         id: self_version
         run: |
-          docker pull antoniocifu/ihost-multipan-docker:latest || echo "No existing latest image on Docker Hub yet."
-          if docker image inspect antoniocifu/ihost-multipan-docker:latest > /dev/null 2>&1; then
-            echo self_version=$(docker inspect antoniocifu/ihost-multipan-docker:latest --format '{{ index .Config.Labels "org.opencontainers.image.version"}}') >> $GITHUB_OUTPUT
+          docker pull rosentti/ihost-multipan-docker:latest || echo "No existing latest image on Docker Hub yet."
+          if docker image inspect rosentti/ihost-multipan-docker:latest > /dev/null 2>&1; then
+            echo self_version=$(docker inspect rosentti/ihost-multipan-docker:latest --format '{{ index .Config.Labels "org.opencontainers.image.version"}}') >> $GITHUB_OUTPUT
           else
             echo self_version= >> $GITHUB_OUTPUT
           fi
