@@ -7,4 +7,4 @@ source /etc/bashlog/log.sh
 
 EZSP_PORT="${EZSP_LISTEN_PORT:-20108}"
 log 'info' "Starting zigbeed-tcp on port ${EZSP_PORT}..."
-exec /usr/bin/socat TCP-LISTEN:${EZSP_PORT},reuseaddr,fork FILE:/tmp/ttyZigbee,raw,echo=0,b115200
+exec /usr/bin/socat TCP-LISTEN:${EZSP_PORT},reuseaddr,fork,bind=127.0.0.1 FILE:/tmp/ttyZigbee,raw,echo=0,b115200
