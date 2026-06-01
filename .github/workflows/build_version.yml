@@ -22,12 +22,6 @@ jobs:
       - name: set version
         run: echo "BASE_VERSION=${{ inputs.base_version }}${{ github.event.client_payload.base_version }}" >> $GITHUB_ENV
 
-      - name: Login to DockerHub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ vars.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_TOKEN }}
-
       - name: Login to ghcr.io
         uses: docker/login-action@v3
         with:
@@ -58,8 +52,7 @@ jobs:
           # create an alias for arm (TARGETARCH in build arg) from the existing armv7 image
           build-contexts: |
             ghcr.io/ihost-open-source-project/hassio-ihost-silabs-multiprotocol-arm64:${{ env.BASE_VERSION }}=docker-image://ghcr.io/ihost-open-source-project/hassio-ihost-silabs-multiprotocol-aarch64:${{ env.BASE_VERSION }}
-            ghcr.io/ihost-open-source-project/hassio-ihost-silabs-multiprotocol-arm:${{ env.BASE_VERSION }}=docker-image://ghcr.io/ihost-open-source-project/hassio-ihost-silabs-multiprotocol-armv7:${{ env.BASE_VERSION }}
-          platforms: linux/amd64,linux/arm64,linux/arm/v7
+          platforms: linux/arm64
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
