@@ -4,6 +4,11 @@
 # ==============================================================================
 source /etc/bashlog/log.sh;
 
+if [[ "${OTBR_WEB_ENABLE}" -eq 0 ]]; then
+  s6-svc -O .
+  exit 0
+fi
+
 log 'info' "Starting otbr-web..."
 declare otbr_web_port
 
