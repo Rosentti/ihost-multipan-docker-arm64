@@ -86,12 +86,12 @@ else
     ip6tables-legacy -P FORWARD ACCEPT
 fi
 
-otbr_rest_listen="::"
+otbr_rest_listen="::1"
 otbr_rest_listen_port="${OTBR_REST_LISTEN_PORT}"
 
 # If user port is not set, listen on local interface only
 if [ -z "${otbr_rest_listen_port}" ]; then
-    otbr_rest_listen="::"
+    otbr_rest_listen="::1"
     otbr_rest_listen_port="8081"
 elif [ "${otbr_rest_listen_port}" != "8081" ]; then
     log 'warning' "Custom OpenThread REST API port is not supported. Using 8081."
